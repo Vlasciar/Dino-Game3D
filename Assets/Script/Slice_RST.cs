@@ -4,22 +4,28 @@ using UnityEngine;
 
 public class Slice_RST : MonoBehaviour
 {
-    public GameObject sample;
+
     private float width;
-    public int size=20;
+    public string Reset_Tag = "";
+    private float Time_Left_For_Next_Reset = 0f;//stops the trigger event from triggering twice a frame
+
     void Start()
     {
-        width = sample.GetComponent<MeshFilter>().mesh.bounds.extents.x*size;
+        width = GetComponent<Collider>().bounds.size.x;
+        
+    }
+    void Update()
+    {
+        Time_Left_For_Next_Reset -= Time.deltaTime;
     }
 
-
-    private void OnTriggerEnter(Collider col)
+        private void OnTriggerEnter(Collider col)
     {
-        Debug.Log("new");
-        if (col.tag == "Reset_Ground")
+        if (col.tag == Reset_Tag && Time_Left_For_Next_Reset < 0)
         {
-            transform.position += Vector3.left*(width*6);
-            
+            Debug.Log(Vector3.left * (width * 2));
+            Time_Left_For_Next_Reset = 3f;
+            transform.position += Vector3.left*(width*2);           
         }
     }
 }

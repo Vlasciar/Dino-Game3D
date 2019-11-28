@@ -6,10 +6,6 @@ public class Drive : MonoBehaviour
 {
 
     public float DriveSpeed = 1;
-    bool direction;
-    private Vector3 nextPosition;
-    public float offset_speed = 0;
-
 
     private void Start()
     {
@@ -17,8 +13,7 @@ public class Drive : MonoBehaviour
     }
     void Update()
     {
-        nextPosition = transform.position + DriveSpeed * Vector3.right;
-        transform.position = nextPosition;
+        transform.position += DriveSpeed * Vector3.right;
 
     }
 }
