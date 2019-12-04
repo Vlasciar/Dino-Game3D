@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{1CA062EA-B34B-901B-9897-8EC0F1697018}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -65,9 +66,12 @@
     <Compile Include="Assets\BOXOPHOBIC\Utils\PropertyDrawers\BMessageAttribute.cs" />
     <Compile Include="Assets\BOXOPHOBIC\Utils\PropertyDrawers\BRangeOptionsAttribute.cs" />
     <Compile Include="Assets\BOXOPHOBIC\Utils\PropertyDrawers\BRangeSimpleAttribute.cs" />
+    <Compile Include="Assets\Script\Destroyer.cs" />
     <Compile Include="Assets\Script\Drive.cs" />
+    <Compile Include="Assets\Script\Movement.cs" />
     <Compile Include="Assets\Script\Move_Fwd.cs" />
     <Compile Include="Assets\Script\Slice_RST.cs" />
+    <Compile Include="Assets\Script\Spawner.cs" />
     <None Include="Assets\Free Low Poly Desert Pack\Materials\Shaders\Vertex_Color_Unlit.shader" />
     <None Include="Assets\BOXOPHOBIC\Utils\Shaders\Unlit Prototype Ground.shader" />
     <None Include="Assets\BOXOPHOBIC\Skybox Cubemap Extended\Core\Shaders\Skybox Cubemap Extended.shader" />
