@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Reset_Ground
   - Reset_Runway
+  - Obstacle
   layers:
   - Default
   - TransparentFX

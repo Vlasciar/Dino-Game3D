@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public float Thrust;
     public float Jump_Thrust;
@@ -14,7 +14,7 @@ public class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
-    
+
     void FixedUpdate()
     {
         if (rb.velocity.y == 0)
@@ -35,18 +35,27 @@ public class Movement : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.A))
             {
-                if(InJump==false)
-                rb.AddForce(0, 0, -1 * Thrust);
-                else rb.AddForce(0, 0, -1 * Thrust/3);
+                if (InJump == false)
+                    rb.AddForce(0, 0, -1 * Thrust);
+                else rb.AddForce(0, 0, -1 * Thrust / 3);
             }
         }
 
-        if (Input.GetKey(KeyCode.Space) && Jump_CD <= 0 && rb.velocity.y == 0)
+        if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W)) && Jump_CD <= 0 && rb.velocity.y == 0)
         {
             InJump = true;
             rb.AddForce(0, Jump_Thrust, 0);
             Jump_CD = 1;
         }
         Jump_CD -= Time.deltaTime;
+    }
+    bool Game_Over = false;
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.tag == "Obstacle")
+        {
+            Game_Over = true;
+            Debug.Log("GO");
+        }
     }
 }

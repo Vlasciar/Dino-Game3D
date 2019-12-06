@@ -12,8 +12,7 @@ public class Spawner : MonoBehaviour
 
     
     private void Start()
-    {
-        
+    {        
         Spawn();
     }
     void Update()
@@ -24,7 +23,7 @@ public class Spawner : MonoBehaviour
         public void Spawn()
     {
         Vector3 Position_Offset = new Vector3(Random.Range(-20, 20), 0, 0);
-        int index = (int)Random.Range(1, Obstacles.Length);
+        int index = (int)Random.Range(0, Obstacles.Length);
         NextPosition = new Vector3(Dino.transform.position.x - Spawn_Distance , 0f, 0f);
         Instantiate(Obstacles[index], NextPosition + Position_Offset, Dino.transform.rotation);//obj pos rotation
         timeLeftForNextSpawn = 3f;
