@@ -69,6 +69,8 @@
     <Compile Include="Assets\Script\Destroyer.cs" />
     <Compile Include="Assets\Script\Drive.cs" />
     <Compile Include="Assets\Script\Move_Fwd.cs" />
+    <Compile Include="Assets\Script\Player.cs" />
+    <Compile Include="Assets\Script\Scorer.cs" />
     <Compile Include="Assets\Script\Slice_RST.cs" />
     <Compile Include="Assets\Script\Spawner.cs" />
     <None Include="Assets\Free Low Poly Desert Pack\Materials\Shaders\Vertex_Color_Unlit.shader" />

@@ -7,10 +7,17 @@ public class Destroyer : MonoBehaviour
     public float TimeToDestroy;
     private void Start()
     {
-        DestroyObjectDelayed();
+            Invoke("DestroyMe", TimeToDestroy);       
     }
-    void DestroyObjectDelayed()
+    private void Update()
     {
-        Destroy(gameObject, TimeToDestroy);
+        if(Player.Game_Over)
+        {
+            CancelInvoke("DestroyMe");
+        }
+    }
+     void DestroyMe()
+    {
+        Destroy(gameObject);
     }
 }
