@@ -14,9 +14,8 @@ public class Move_Fwd : MonoBehaviour
     }
     void FixedUpdate()
     {
-        //nextPosition = transform.position + DriveSpeed * Vector3.right;
-        if (!Player.Game_Over)
-            transform.position += DriveSpeed * Vector3.right;
+        if (!Player.Game_Over && Player.Game_Start)
+            transform.position += (DriveSpeed + (Scorer.Score / 100) / 100) * Vector3.right;
 
     }
 }

@@ -9,12 +9,12 @@ public class Scorer : MonoBehaviour
 {
     public TextMesh Score_Sesion;
     public TextMesh High_Score;
-    private int Score;
+    public static int Score;
+    
     void Start()
     {
         Set_HighScore();
-    }
-    private float Time_Elapsed;
+    }   
     void Update()
     {
         if (!Player.Game_Over)
@@ -39,10 +39,13 @@ public class Scorer : MonoBehaviour
                 PlayerPrefs.SetInt("HighScore", Score);
             }
             Set_HighScore();
-            if(Input.GetKey(KeyCode.Space))
+            TimeSinceDeath += Time.deltaTime;
+            if((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && TimeSinceDeath>=1f)
             Game_Reset();
         }
     }
+    float TimeSinceDeath = 0;
+    private float Time_Elapsed;
     void Game_Reset()
     {                
         GameObject[] obstacles;
@@ -51,6 +54,7 @@ public class Scorer : MonoBehaviour
         {
             GameObject.Destroy(obstacle);
         }
+        TimeSinceDeath = 0;
         Player.Game_Over = false;
         Time_Elapsed = 0;        
     }

@@ -8,65 +8,95 @@ public class Player : MonoBehaviour
     public float Jump_Thrust;
     public float Max_Speed;
 
-    private Rigidbody rb;
-    private float Jump_CD = 1;
-    
 
-    
+    public Animation Dino_Anim;
+    public Animation Anim;
+    public Animation Cam_Abs;//ABSolute position
+    public Animation Cam_Rel;//RELative position
+
     private int Position;
+
+    public GameObject Txt_Score;
+    public GameObject Txt_Dino_Runner;
+
     void Start()
     {
+        Txt_Score.SetActive(false);
         Position = 1;//0-left 1-center 2-right
-        rb = GetComponent<Rigidbody>();
     }
-    bool isMoving = false;
-    bool Move_Left = false;
-    bool Move_Right = false;
+    bool First_Input = false;
     void Update()
     {
-        if (!Game_Over)
+       
+        if (!Game_Start)
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                Anim.Play("Jump");
+                First_Input = true;
+            }
+        }
+        if (First_Input && !Anim.isPlaying)
+        {
+            Game_Start = true;
+            Cam_Rel.Play("Cam_Init");
+            First_Input = false;
+            Txt_Score.SetActive(true);
+            Invoke("Remove_TitleScreen", 1f);
+        }
+        if (!Game_Over && Game_Start)
             Check_Movement();
+    }
+    void Remove_TitleScreen()
+    {
+        Txt_Dino_Runner.SetActive(false);
     }
 
     void Check_Movement()
     {
-    if(Input.GetKey(KeyCode.A) && Position > 0 && isMoving== false)
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && Position > 0 && Dino_Anim.isPlaying == false)
         {
-            isMoving = true;
-            Move_Left = true;
+            if (Position == 1)
+            {
+                Dino_Anim.Play("Move_Left");
+                Cam_Abs.Play("Cam_Move_Left");
+            }
+            else if (Position == 2)
+            {
+                Dino_Anim.Play("Move_Center_From_Right");
+                Cam_Abs.Play("Cam_Move_Center_From_Right");
+            }
             Position--;
         }
-        if (Input.GetKey(KeyCode.D) && Position < 2 && isMoving == false)
-        {
-            isMoving = true;
-            Move_Right = true;
-            Position++;
-        }
-        if (Move_Left) transform.position -= Vector3.forward * 0.10f;
-        if (Move_Right) transform.position += Vector3.forward * 0.10f;
-        if ((transform.position.z <= 0.05f && transform.position.z >= -0.05f) || transform.position.z >= 2.5 || transform.position.z <= -2.5)
-        {
-            Move_Left = false;
-            Move_Right = false;
-            isMoving = false;
-        }  
-        
-        if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W)) && Jump_CD <= 0 && rb.velocity.y == 0)
-        {
-            rb.AddForce(0, Jump_Thrust, 0);
-            Jump_CD = 1;
-        }
-        Jump_CD -= Time.deltaTime;
 
-        if (rb.velocity.y < 2 && rb.velocity.y > -2) rb.AddForce(0, - Jump_Thrust/17, 0);  
+         if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && Position < 2 && Dino_Anim.isPlaying == false)
+            {
+                if (Position == 0)
+                {
+                Dino_Anim.Play("Move_Center_From_Left");
+                Cam_Abs.Play("Cam_Move_Center_From_Left");
+            }
+                else if (Position == 1)
+                {
+                Dino_Anim.Play("Move_Right");
+                Cam_Abs.Play("Cam_Move_Right");
+            }
+                Position++;
+            }
+
+        if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && Anim.isPlaying == false)
+            {
+            Anim.Play("Jump"); 
+            }            
     }
-
+    public static bool Game_Start = false;
     public static bool Game_Over = false;
     private void OnTriggerEnter(Collider col)
     {
         if (col.tag == "Obstacle")
         {
             Game_Over = true;
+            Cam_Rel.Play("Cam_Got_Hit");
         }
     }
 }

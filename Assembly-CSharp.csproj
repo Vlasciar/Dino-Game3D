@@ -67,7 +67,6 @@
     <Compile Include="Assets\BOXOPHOBIC\Utils\PropertyDrawers\BRangeOptionsAttribute.cs" />
     <Compile Include="Assets\BOXOPHOBIC\Utils\PropertyDrawers\BRangeSimpleAttribute.cs" />
     <Compile Include="Assets\Script\Destroyer.cs" />
-    <Compile Include="Assets\Script\Drive.cs" />
     <Compile Include="Assets\Script\Move_Fwd.cs" />
     <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\Script\Scorer.cs" />
