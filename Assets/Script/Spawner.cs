@@ -16,6 +16,10 @@ public class Spawner : MonoBehaviour
     void Update()
     {
         timeLeftForNextSpawn -= Time.deltaTime;
+        if(SpawnTime>=1)
+        {
+            SpawnTime = 2 - (Scorer.Score / 60f) / 100f;
+        }
         if (timeLeftForNextSpawn <= 0 && !Player.Game_Over && Player.Game_Start) Spawn();
     }
         public void Spawn()
