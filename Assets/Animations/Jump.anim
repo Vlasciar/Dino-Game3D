@@ -28,7 +28,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.077215835, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.46666667
+        time: 0.35
         value: {x: -8, y: 4, z: 0}
         inSlope: {x: 0, y: 4.7295265, z: 0}
         outSlope: {x: 0, y: 4.7295265, z: 0}
@@ -37,16 +37,16 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.20367385, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.10369456, z: 0.33333334}
       - serializedVersion: 3
-        time: 1
-        value: {x: -8, y: 1.5997009, z: 0}
-        inSlope: {x: 0, y: -8.720785, z: 0}
-        outSlope: {x: 0, y: -8.720785, z: 0}
+        time: 0.73333335
+        value: {x: -8, y: 1.2726927, z: 0}
+        inSlope: {x: 0, y: -10.6451025, z: 0}
+        outSlope: {x: 0, y: -10.6451025, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 1.1333333
+        time: 0.81666666
         value: {x: -8, y: 0.505, z: 0}
         inSlope: {x: 0, y: -7.3866153, z: 0}
         outSlope: {x: 0, y: -7.3866153, z: 0}
@@ -74,7 +74,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.1333333
+    m_StopTime: 0.81666666
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -103,7 +103,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1
+        time: 0.73333335
         value: -8
         inSlope: 0
         outSlope: 0
@@ -131,7 +131,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.077215835
       - serializedVersion: 3
-        time: 0.46666667
+        time: 0.35
         value: 4
         inSlope: 4.7295265
         outSlope: 4.7295265
@@ -140,7 +140,7 @@ AnimationClip:
         inWeight: 0.20367385
         outWeight: 0.10369456
       - serializedVersion: 3
-        time: 1.1333333
+        time: 0.81666666
         value: 0.505
         inSlope: -7.3866153
         outSlope: -7.3866153
@@ -168,7 +168,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1
+        time: 0.73333335
         value: 0
         inSlope: 0
         outSlope: 0
@@ -186,4 +186,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.083333336
+    functionName: Sound_Jump_Play
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

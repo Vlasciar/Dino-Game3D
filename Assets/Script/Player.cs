@@ -11,8 +11,14 @@ public class Player : MonoBehaviour
 
     public Animation Dino_Anim;
     public Animation Anim;
+    public Animation Model_Anim;
     public Animation Cam_Abs;//ABSolute position
     public Animation Cam_Rel;//RELative position
+
+    AudioSource audio;
+    public AudioClip Sound_Jump;
+    public AudioClip Sound_100pts;
+    public AudioClip Sound_Game_Over;
 
     private int Position;
 
@@ -21,16 +27,19 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         Txt_Score.SetActive(false);
         Position = 1;//0-left 1-center 2-right
     }
     bool First_Input = false;
     void Update()
     {
-       
+        if (Scorer.Score % 100 == 0 && Scorer.Score > 1 && !Game_Over && Game_Start )
+            Sound_100pts_Play();
+
         if (!Game_Start)
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
             {
                 Anim.Play("Jump");
                 First_Input = true;
@@ -44,6 +53,7 @@ public class Player : MonoBehaviour
             Txt_Score.SetActive(true);
             Invoke("Remove_TitleScreen", 1f);
         }
+
         if (!Game_Over && Game_Start)
             Check_Movement();
     }
@@ -52,19 +62,22 @@ public class Player : MonoBehaviour
         Txt_Dino_Runner.SetActive(false);
     }
 
+
     void Check_Movement()
     {
+        if(Anim.isPlaying == false)//is not in jump
+        Model_Anim.Play("Run");
         if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && Position > 0 && Dino_Anim.isPlaying == false)
         {
             if (Position == 1)
             {
                 Dino_Anim.Play("Move_Left");
-                Cam_Abs.Play("Cam_Move_Left");
+                Cam_Abs.Play("Cam_Move_Right");
             }
             else if (Position == 2)
             {
                 Dino_Anim.Play("Move_Center_From_Right");
-                Cam_Abs.Play("Cam_Move_Center_From_Right");
+                Cam_Abs.Play("Cam_Move_Center_From_Left");
             }
             Position--;
         }
@@ -74,12 +87,12 @@ public class Player : MonoBehaviour
                 if (Position == 0)
                 {
                 Dino_Anim.Play("Move_Center_From_Left");
-                Cam_Abs.Play("Cam_Move_Center_From_Left");
+                Cam_Abs.Play("Cam_Move_Center_From_Right");
             }
                 else if (Position == 1)
                 {
                 Dino_Anim.Play("Move_Right");
-                Cam_Abs.Play("Cam_Move_Right");
+                Cam_Abs.Play("Cam_Move_Left");
             }
                 Position++;
             }
@@ -97,6 +110,23 @@ public class Player : MonoBehaviour
         {
             Game_Over = true;
             Cam_Rel.Play("Cam_Got_Hit");
+            Sound_Game_Over_Play();
         }
+    }
+
+    void Sound_Jump_Play()
+    {
+        audio.clip = Sound_Jump;
+        audio.Play(0);
+    }
+    void Sound_100pts_Play()
+    {
+        audio.clip = Sound_100pts;
+        audio.Play(0);
+    }
+    void Sound_Game_Over_Play()
+    {
+        audio.clip = Sound_Game_Over;
+        audio.Play(0);
     }
 }

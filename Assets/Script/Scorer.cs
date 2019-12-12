@@ -13,6 +13,7 @@ public class Scorer : MonoBehaviour
     
     void Start()
     {
+        //PlayerPrefs.DeleteAll(); //reset High Score
         Set_HighScore();
     }   
     void Update()
