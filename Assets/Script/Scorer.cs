@@ -41,7 +41,7 @@ public class Scorer : MonoBehaviour
             }
             Set_HighScore();
             TimeSinceDeath += Time.deltaTime;
-            if((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && TimeSinceDeath>=1f)
+            if((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) || Input.touchCount > 0) && TimeSinceDeath>=1f)
             Game_Reset();
         }
     }

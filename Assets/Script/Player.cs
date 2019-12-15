@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
 
         if (!Game_Start)
         {
-            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) || Input.touchCount > 0)
             {
                 Anim.Play("Jump");
                 First_Input = true;
@@ -62,42 +62,86 @@ public class Player : MonoBehaviour
         Txt_Dino_Runner.SetActive(false);
     }
 
-
+    string Memory_Input_Cam;
+    string Memory_Input_Dino;
+    bool Memory_Input = false;
     void Check_Movement()
     {
         if(Anim.isPlaying == false)//is not in jump
         Model_Anim.Play("Run");
-        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && Position > 0 && Dino_Anim.isPlaying == false)
+        if ((SwipeInput.swipedLeft || Input.GetKeyDown("left")) && Position > 0)
         {
-            if (Position == 1)
+            if (Dino_Anim.isPlaying == false)
             {
-                Dino_Anim.Play("Move_Left");
-                Cam_Abs.Play("Cam_Move_Right");
+                if (Position == 1)
+                {
+                    Dino_Anim.Play("Move_Left");
+                    Cam_Abs.Play("Cam_Move_Right");
+                }
+                else if (Position == 2)
+                {
+                    Dino_Anim.Play("Move_Center_From_Right");
+                    Cam_Abs.Play("Cam_Move_Center_From_Left");
+                }
+                Position--;
             }
-            else if (Position == 2)
+            else if (!Memory_Input)
             {
-                Dino_Anim.Play("Move_Center_From_Right");
-                Cam_Abs.Play("Cam_Move_Center_From_Left");
-            }
-            Position--;
+                Memory_Input = true;
+                if (Position == 1)
+                {
+                    Memory_Input_Dino = "Move_Left";
+                    Memory_Input_Cam = "Cam_Move_Right";
+                }
+                else if (Position == 2)
+                {
+                    Memory_Input_Dino = "Move_Center_From_Right";
+                    Memory_Input_Cam = "Cam_Move_Center_From_Left";
+                }
+                Position--;
+            }                
         }
 
-         if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && Position < 2 && Dino_Anim.isPlaying == false)
+         if ((SwipeInput.swipedRight || Input.GetKeyDown("right")) && Position < 2)
+            {
+            if (Dino_Anim.isPlaying == false)
             {
                 if (Position == 0)
                 {
-                Dino_Anim.Play("Move_Center_From_Left");
-                Cam_Abs.Play("Cam_Move_Center_From_Right");
-            }
+                    Dino_Anim.Play("Move_Center_From_Left");
+                    Cam_Abs.Play("Cam_Move_Center_From_Right");
+                }
                 else if (Position == 1)
                 {
-                Dino_Anim.Play("Move_Right");
-                Cam_Abs.Play("Cam_Move_Left");
-            }
+                    Dino_Anim.Play("Move_Right");
+                    Cam_Abs.Play("Cam_Move_Left");
+                }
                 Position++;
             }
-
-        if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && Anim.isPlaying == false)
+            else if (!Memory_Input)
+            {
+                Memory_Input = true;
+                if (Position == 0)
+                {
+                    Memory_Input_Dino = "Move_Center_From_Left";
+                    Memory_Input_Cam = "Cam_Move_Center_From_Right";
+                }
+                else if (Position == 1)
+                {
+                   Memory_Input_Dino = "Move_Right";
+                   Memory_Input_Cam = "Cam_Move_Left";
+                }
+                Position++;
+            }                
+            }
+           
+         if (!Dino_Anim.isPlaying && Memory_Input)
+        {
+            Dino_Anim.Play(Memory_Input_Dino);
+            Cam_Abs.Play(Memory_Input_Cam);
+            Memory_Input = false;
+        }
+        if (SwipeInput.swipedUp && Anim.isPlaying == false)
             {
             Anim.Play("Jump"); 
             }            
@@ -117,16 +161,16 @@ public class Player : MonoBehaviour
     void Sound_Jump_Play()
     {
         audio.clip = Sound_Jump;
-        audio.Play(0);
+        audio.Play();
     }
     void Sound_100pts_Play()
     {
         audio.clip = Sound_100pts;
-        audio.Play(0);
+        audio.Play();
     }
     void Sound_Game_Over_Play()
     {
         audio.clip = Sound_Game_Over;
-        audio.Play(0);
+        audio.Play();
     }
 }
